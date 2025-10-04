@@ -6,8 +6,8 @@ package main
 import (
 	"context"
 
-	"github.com/lima-vm/lima/v2/pkg/driver/external/server"
 	"github.com/afbjorklund/lima-driver-digitalocean/pkg/driver/digitalocean"
+	"github.com/lima-vm/lima/v2/pkg/driver/external/server"
 )
 
 // To be used as an external driver for Lima.

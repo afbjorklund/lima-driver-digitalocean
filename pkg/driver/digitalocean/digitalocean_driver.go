@@ -29,7 +29,7 @@ type LimaDigitalOceanDriver struct {
 	qCmd    *exec.Cmd
 	qWaitCh chan error
 
-	client   *godo.Client
+	client *godo.Client
 }
 
 var _ driver.Driver = (*LimaDigitalOceanDriver)(nil)
@@ -51,7 +51,7 @@ func (l *LimaDigitalOceanDriver) Validate(ctx context.Context) error {
 	return validateConfig(ctx, l.Instance.Config)
 }
 
-func validateConfig(ctx context.Context, cfg *limatype.LimaYAML) error {
+func validateConfig(_ context.Context, cfg *limatype.LimaYAML) error {
 	if cfg == nil {
 		return errors.New("configuration is nil")
 	}
@@ -62,11 +62,13 @@ func validateConfig(ctx context.Context, cfg *limatype.LimaYAML) error {
 	return nil
 }
 
-func (l *LimaDigitalOceanDriver) FillConfig(ctx context.Context, cfg *limatype.LimaYAML, filePath string) error {
+func (l *LimaDigitalOceanDriver) FillConfig(ctx context.Context, cfg *limatype.LimaYAML, _ string) error {
 	if cfg.VMType == nil {
 		cfg.VMType = ptr.Of("digitalocean")
 	}
-
+	if cfg.MountType == nil {
+		cfg.MountType = ptr.Of(limatype.REVSSHFS)
+	}
 	return validateConfig(ctx, cfg)
 }
 
@@ -77,7 +79,6 @@ func (l *LimaDigitalOceanDriver) BootScripts() (map[string][]byte, error) {
 func (l *LimaDigitalOceanDriver) CreateDisk(_ context.Context) error {
 	return nil
 }
-
 
 func (l *LimaDigitalOceanDriver) Start(_ context.Context) (chan error, error) {
 	ctx, cancel := context.WithCancel(context.Background())
@@ -119,11 +120,11 @@ func (l *LimaDigitalOceanDriver) Start(_ context.Context) (chan error, error) {
 	return l.qWaitCh, nil
 }
 
-func (l *LimaDigitalOceanDriver) Stop(ctx context.Context) error {
+func (l *LimaDigitalOceanDriver) Stop(_ context.Context) error {
 	return errUnimplemented
 }
 
-func (l *LimaDigitalOceanDriver) GuestAgentConn(ctx context.Context) (net.Conn, string, error) {
+func (l *LimaDigitalOceanDriver) GuestAgentConn(_ context.Context) (net.Conn, string, error) {
 	return nil, "", nil
 }
 

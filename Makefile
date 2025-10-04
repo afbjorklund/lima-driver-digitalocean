@@ -1,5 +1,24 @@
 
 GO = go
 
-lima-driver-digitalocean: cmd/lima-driver-digitalocean pkg/driver/digitalocean go.mod
-	$(GO) build ./cmd/lima-driver-digitalocean
+PREFIX ?= /usr/local
+
+BIN = lima-driver-digitalocean
+CMD = cmd/lima-driver-digitalocean
+PKG = pkg/driver/digitalocean
+all: $(BIN)
+
+$(BIN): $(CMD) $(PKG) go.mod
+	$(GO) build ./$(CMD)
+
+.PHONY: install
+install: $(BIN)
+	$(INSTALL) -D -m 755 $@ $(DESTDIR)$(PREFIX)/libexec/lima/$(BIN)
+
+.PHONY: lint
+lint:
+	golangci-lint run $(CMD) $(PKG)
+
+.PHONY: clean
+clean:
+	$(RM) $(BIN)

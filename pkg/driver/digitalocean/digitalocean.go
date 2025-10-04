@@ -39,7 +39,7 @@ type Config struct {
 	SSHLocalPort int
 	SSHAddress   string
 
-	Client       *godo.Client
+	Client *godo.Client
 }
 
 // EnsureDisk ensures the basedisk and diffdisk.
@@ -552,14 +552,14 @@ func VirtiofsdCmdline(cfg Config, mountIndex int) ([]string, error) {
 
 // qemuArch returns the arch string used by qemu.
 func qemuArch(arch limatype.Arch) string {
-       switch arch {
-       case limatype.ARMV7L:
-               return "arm"
-       case limatype.PPC64LE:
-               return "ppc64"
-       default:
-               return arch
-       }
+	switch arch {
+	case limatype.ARMV7L:
+		return "arm"
+	case limatype.PPC64LE:
+		return "ppc64"
+	default:
+		return arch
+	}
 }
 
 func Exe(arch limatype.Arch) (exe string, args []string, err error) {
