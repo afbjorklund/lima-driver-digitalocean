@@ -111,6 +111,7 @@ func (l *LimaDigitalOceanDriver) Start(_ context.Context) (chan error, error) {
 	go logPipeRoutine(qStderr, "godo[stderr]")
 
 	logrus.Infof("Starting QEMU (hint: to watch the boot progress, see %q)", filepath.Join(qCfg.InstanceDir, "serial*.log"))
+	logrus.Debugf("qCmd.Args: %v", qCmd.Args)
 	if err := qCmd.Start(); err != nil {
 		return nil, err
 	}

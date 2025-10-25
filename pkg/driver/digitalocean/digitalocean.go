@@ -126,6 +126,7 @@ func appendArgsIfNoConflict(args []string, k, v string) []string {
 	return append(args, k, v)
 }
 
+//nolint:gocyclo
 func Cmdline(ctx context.Context, cfg Config) (exe string, args []string, err error) {
 	y := cfg.LimaYAML
 	exe, args, err = Exe(*y.Arch)
