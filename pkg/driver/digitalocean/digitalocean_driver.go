@@ -160,8 +160,48 @@ func (l *LimaDigitalOceanDriver) InspectStatus(_ context.Context, _ *limatype.In
 	return ""
 }
 
+func (l *LimaDigitalOceanDriver) Create(_ context.Context) error {
+	return nil
+}
+
+func (l *LimaDigitalOceanDriver) Delete(_ context.Context) error {
+	return nil
+}
+
 func (l *LimaDigitalOceanDriver) RunGUI() error {
 	return nil
+}
+
+func (l *LimaDigitalOceanDriver) Register(_ context.Context) error {
+	return nil
+}
+
+func (l *LimaDigitalOceanDriver) Unregister(_ context.Context) error {
+	return nil
+}
+
+func (l *LimaDigitalOceanDriver) ChangeDisplayPassword(_ context.Context, _ string) error {
+	return nil
+}
+
+func (l *LimaDigitalOceanDriver) DisplayConnection(_ context.Context) (string, error) {
+	return "", nil
+}
+
+func (l *LimaDigitalOceanDriver) CreateSnapshot(_ context.Context, _ string) error {
+	return errUnimplemented
+}
+
+func (l *LimaDigitalOceanDriver) ApplySnapshot(_ context.Context, _ string) error {
+	return errUnimplemented
+}
+
+func (l *LimaDigitalOceanDriver) DeleteSnapshot(_ context.Context, _ string) error {
+	return errUnimplemented
+}
+
+func (l *LimaDigitalOceanDriver) ListSnapshots(_ context.Context) (string, error) {
+	return "", errUnimplemented
 }
 
 func (l *LimaDigitalOceanDriver) ForwardGuestAgent() bool {
